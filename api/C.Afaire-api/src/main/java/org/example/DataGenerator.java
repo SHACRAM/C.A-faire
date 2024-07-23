@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Création de fausses données avec la librairie java Faker
+ */
 public class DataGenerator {
     public static void main(String[] args) {
         int userNumber = 15;
@@ -26,9 +29,11 @@ public class DataGenerator {
             user.put("password", hashedPassword);
             users.add(user);
         }
-
+/**
+ * Insertion des données dans la table Users de la base de données C.A-faire
+ */
         try
-                (Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:8889/C.A-faire?useSSL=false", "Sebastien", "A@49nPg0?");
+                (Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:8889/CAfaire?useSSL=false", "Sebastien", "A@49nPg0?");
             PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO users (enterprise, email, password) VALUES (?,?,?)")){
 
             for(Map<String, String> user : users){
