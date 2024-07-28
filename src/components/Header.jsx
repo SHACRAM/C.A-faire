@@ -20,7 +20,7 @@ export const Header=()=>{
            
             {isLoggedIn? (
                 <ul className="flex flex-col">
-                    <li><NavLink to='/profil' className='text-sm'>{enterprise}</NavLink></li>
+                    <li><NavLink to='/Profil' className='text-sm'>{enterprise}</NavLink></li>
                     <li><button onClick={handleLogout} className='text-sm'>Se déconnecter</button></li>
                 </ul>) : 
                 <ul className="flex flex-col">
@@ -28,9 +28,6 @@ export const Header=()=>{
                     <li><NavLink to='/CreateAccount' className='text-sm'>Créer un compte</NavLink></li>
                 </ul>
             }
-                
-            
-            
         </div>
     )
 }
