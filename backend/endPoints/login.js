@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../dbConfig'); 
+const bcrypt = require('bcrypt');
 
 
 
@@ -34,32 +35,33 @@ const createTokenFromJson = (jsonData)=>{
  * @returns {Object} La réponse JSON contenant le statut et le jeton JWT si la connexion est réussie.
  */
 
-router.post("/", (req, res)=>{
-    const sql = 'SELECT enterprise, email, password FROM Users WHERE email = ? AND password = ?'
+router.post("/",async (req, res)=>{
+    const {email, password} = req.body;
     
-    db.query(sql, [req.body.email,  req.body.password], (err, data)=>{
+    const sql = 'SELECT enterprise, email, password FROM Users WHERE email = ?'
+    
+    db.query(sql, [email],async  (err, data)=>{
         if(err) return res.json('Echec de la connexion');
         if(data.length > 0){
-            console.log(data)
             const enterprise = data[0]
-                const jsonData = {email : req.body.email, password: req.body.password};
+            const passwordMatch = await bcrypt.compare(password, enterprise.password )
+
+            if (passwordMatch) {
+                const jsonData = { email: enterprise.email, enterprise: enterprise.enterprise };
                 const token = createTokenFromJson(jsonData);
 
-                if(token){
-                    return res.json({status :true, message:"Connexion réussi", token : token, enterprise: enterprise.enterprise})
-                } else{
-                    return res.json({status : false, message: 'Echec de la création du jeton'})
+                if (token) {
+                    return res.status(200).json({ status: true, message: "Connexion réussie", token: token, enterprise: enterprise.enterprise });
+                } else {
+                    return res.status(500).json({ status: false, message: 'Échec de la création du jeton' });
                 }
-        }else{
-            return res.json({status : false, message: 'Identifiant incorrect'})
+            } else {
+                return res.status(401).json({ status: false, message: 'Identifiant incorrect' });
+            }
+        } else {
+            return res.status(401).json({ status: false, message: 'Identifiant incorrect' });
         }
-
-    })
-})
-
-
-
-
-
+    });
+});
 
 module.exports = router;
