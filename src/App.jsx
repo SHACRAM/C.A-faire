@@ -1,39 +1,24 @@
-import { useState } from 'react'
-import './index.css'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
+import './App.css';
 import { Accueil } from './pages/Accueil';
 import { Connexion } from './pages/Connexion';
 import { CreateAccount } from './pages/CreateAccount';
-import {Profil} from './pages/Profil';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-
-const router = createBrowserRouter([
-  {
-    path:'/',
-    element: <Accueil/>
-  },
-  {
-    path:'/Connexion',
-    element: <Connexion/>
-  },
-  {
-    path:'/CreateAccount',
-    element: <CreateAccount/>
-  },
-  {
-    path:'/Profil',
-    element: <Profil/>
-  }
-  
-
-])
+import { Profil } from './pages/Profil';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <RouterProvider router={router} />
-  )
-    
+    <Router>
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+        <Route path="/Connexion" element={<Connexion />} />
+        <Route path="/CreateAccount" element={<CreateAccount />} />
+        <Route path="/Profil" element={<PrivateRoute element={Profil} />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

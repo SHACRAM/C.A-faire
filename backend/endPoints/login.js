@@ -38,7 +38,7 @@ const createTokenFromJson = (jsonData)=>{
 router.post("/",async (req, res)=>{
     const {email, password} = req.body;
     
-    const sql = 'SELECT enterprise, email, password FROM Users WHERE email = ?'
+    const sql = 'SELECT id, enterprise, email, password FROM Users WHERE email = ?'
     
     db.query(sql, [email],async  (err, data)=>{
         if(err) return res.json('Echec de la connexion');
@@ -47,7 +47,7 @@ router.post("/",async (req, res)=>{
             const passwordMatch = await bcrypt.compare(password, enterprise.password )
 
             if (passwordMatch) {
-                const jsonData = { email: enterprise.email, enterprise: enterprise.enterprise };
+                const jsonData = { email: enterprise.email, enterprise: enterprise.enterprise, id: enterprise.id};
                 const token = createTokenFromJson(jsonData);
 
                 if (token) {
