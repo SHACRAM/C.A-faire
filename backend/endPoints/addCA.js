@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const authToken = require('../authMiddleware');
 const db = require('../dbConfig');
-
+/**
+ * Ajouter un chiffre d'affaire
+ * @param INT - Ajoute le montant du chiffre d'affaire
+ * @param DATE -Ajoute la date du jour lors de la transaction
+ * @return {object} - Un objet avec le status de la réponse avec un message de confirmation ou non
+ */
 router.post('/', authToken, (req, res, next) => {
     const { montant, dateDuJour } = req.body;
     const user_id = req.user.id;

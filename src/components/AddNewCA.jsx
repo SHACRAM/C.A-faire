@@ -11,7 +11,7 @@ export const AddNewCA = () => {
     const year = date.getFullYear();
     const dateDuJour = date.toISOString().split('T')[0];
     const actualMonth = monthName[month];
-
+// Fonction pour soumettre les informations
     const handleSubmit = async (e) => {
         e.preventDefault();
 

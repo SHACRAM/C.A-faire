@@ -1,13 +1,14 @@
 import React from "react";
 import { Header } from "../components/Header";
 import { AddNewCA } from "../components/AddNewCA";
+import { DisplayUserProfile } from "../components/DisplayUserProfile";
 
 export const Profil = ()=>{
 
     return(<div>
         <Header/>
         <div>
-            //TODO affichage des informations du profil
+            <DisplayUserProfile/>
         </div>
         <div>
             <AddNewCA/>

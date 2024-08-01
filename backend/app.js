@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const login = require("./endPoints/login");
 const createAccount = require('./endPoints/createAccount');
 const addCA = require('./endPoints/addCA');
+const displayUserprofil = require('./endPoints/userProfil');
 
 
 app.use(express.json());
@@ -30,6 +31,7 @@ db.connect((err)=>{
 app.use("/login", login);
 app.use("/createAccount", createAccount);
 app.use("/addCA", addCA);
+app.use("/userProfil", displayUserprofil);
 
 
 
