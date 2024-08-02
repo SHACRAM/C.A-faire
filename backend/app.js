@@ -1,15 +1,13 @@
 // app.js
 const express = require('express');
-const app = express();
 const db = require('./dbConfig'); 
 const jwt = require('jsonwebtoken');
-const login = require("./endPoints/login");
-const createAccount = require('./endPoints/createAccount');
-const addCA = require('./endPoints/addCA');
-const displayUserprofil = require('./endPoints/userProfil');
+const authenticationRouter = require("./routes/authentication");
+const userRouter= require('./routes/user');
 
-
+const app = express();
 app.use(express.json());
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,14 +26,8 @@ db.connect((err)=>{
 })
 
 
-app.use("/login", login);
-app.use("/createAccount", createAccount);
-app.use("/addCA", addCA);
-app.use("/userProfil", displayUserprofil);
-
-
-
-
+app.use("/api/authentication", authenticationRouter);
+app.use("/api/user", userRouter);
 
 
 
