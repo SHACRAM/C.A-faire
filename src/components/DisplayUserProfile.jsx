@@ -8,6 +8,14 @@ export const DisplayUserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [updateProfil, setUpdateProfil] = useState(false);
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -61,7 +69,7 @@ export const DisplayUserProfile = () => {
           </div>
           <div className="flex gap-3 items-center">
             <h3 className="text-[1.2rem]">Date d'Ouverture:</h3>
-            <p>{profil[0].dateOuverture}</p>
+            <p>{formatDate(profil[0].dateOuverture)}</p>
           </div>
           <div className="flex gap-3 items-center">
             <h3 className="text-[1.2rem]">Nombre d'Employés:</h3>
@@ -75,7 +83,6 @@ export const DisplayUserProfile = () => {
             <h3 className="text-[1.2rem]">Nom du Gérant:</h3>
             <p>{profil[0].nomGerant}</p>
           </div>
-          {console.log(profil)}
           <NavLink
             to="/ProfilForm"
             className="border w-[15em] flex justify-center p-3"

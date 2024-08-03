@@ -48,7 +48,6 @@ router.get("/profile", authToken, (req, res) => {
       console.error("Erreur lors de la requête SQL", err);
       return res.status(500).json({ status: false, message: "Erreur serveur" });
     }
-    console.log(result);
     if (result.length === 0) {
       return res.status(404).json({
         status: false,
@@ -59,6 +58,47 @@ router.get("/profile", authToken, (req, res) => {
       return res.status(200).json({ status: true, profil: result });
     }
   });
+});
+
+router.post("/modifyUser", authToken, (req, res) => {
+  const {
+    nomSalon,
+    adresseSalon,
+    newDate,
+    nombreEmployes,
+    prenomGerant,
+    nomGerant,
+  } = req.body;
+  const user_id = req.user.id;
+
+  const modifysql =
+    "UPDATE Users SET nomSalon = ?, adresseSalon = ?, dateOuverture = ?, nombreEmployes= ?, prenomGerant =?, nomGerant =? WHERE id = ?";
+
+  db.query(
+    modifysql,
+    [
+      nomSalon,
+      adresseSalon,
+      newDate,
+      nombreEmployes,
+      prenomGerant,
+      nomGerant,
+      user_id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Erreur serveur lors d'insertion des données", err);
+        return res.status(500).json({
+          status: false,
+          message: "Erreur lors de l'enregistrement des informations",
+        });
+      } else {
+        return res
+          .status(200)
+          .json({ status: true, message: "Les données sont enregistrés" });
+      }
+    }
+  );
 });
 
 module.exports = router;
