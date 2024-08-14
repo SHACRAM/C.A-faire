@@ -8,6 +8,7 @@ import { CreateAccount } from "./pages/CreateAccount";
 import { Profil } from "./pages/Profil";
 import { ProfilForm } from "./pages/ProfilForm";
 import PrivateRoute from "./components/PrivateRoute";
+import { DeleteAccount } from "./pages/DeleteAccount";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/CreateAccount" element={<CreateAccount />} />
         <Route path="/Profil" element={<PrivateRoute element={Profil} />} />
         <Route path="/ProfilForm" element={<ProfilForm />} />
+        <Route path="/DeleteAccount" element={<DeleteAccount />} />
       </Routes>
     </Router>
   );

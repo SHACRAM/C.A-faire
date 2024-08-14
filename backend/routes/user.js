@@ -101,4 +101,27 @@ router.post("/modifyUser", authToken, (req, res) => {
   );
 });
 
+router.delete("/deleteAccount", authToken, (req, res) => {
+  const user_id = req.user.id;
+  const deleteAccount = "DELETE FROM Users WHERE id = ?";
+  db.query(deleteAccount, [user_id], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        status: false,
+        message: "Erreur lors de la supression du compte",
+      });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        status: false,
+        message: "Aucun compte n'a été trouvé",
+      });
+    } else {
+      return res
+        .status(200)
+        .json({ status: true, message: "Votre compte à été supprimé" });
+    }
+  });
+});
+
 module.exports = router;
