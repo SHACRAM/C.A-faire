@@ -11,12 +11,12 @@ export const AddNewCA = () => {
     const year = date.getFullYear();
     const dateDuJour = date.toISOString().split('T')[0];
     const actualMonth = monthName[month];
-
+// Fonction pour soumettre les informations
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/addCA', { montant, dateDuJour });
+            const response = await axios.post('/api/user/ca', { montant, dateDuJour });
             if (response.data.status) {
                 setMessage('Votre chiffre d\'affaire a été enregistré');
                 setValide(true);
