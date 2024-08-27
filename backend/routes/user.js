@@ -9,7 +9,7 @@ const db = require("../dbConfig");
  * @param DATE -Ajoute la date du jour lors de la transaction
  * @return {object} - Un objet avec le status de la réponse avec un message de confirmation ou non
  */
-router.post("/ca", authToken, (req, res, next) => {
+router.post("/ca", authToken, (req, res) => {
   const { montant, dateDuJour } = req.body;
   const user_id = req.user.id;
 
@@ -100,6 +100,12 @@ router.post("/modifyUser", authToken, (req, res) => {
     }
   );
 });
+
+/**
+ * Supprimer son compte
+ * @param int- récupère l'id de l'utilisateur depuis le token
+ * @return {objetc} retourne un objet contenant le réponse du serveur
+ */
 
 router.delete("/deleteAccount", authToken, (req, res) => {
   const user_id = req.user.id;
