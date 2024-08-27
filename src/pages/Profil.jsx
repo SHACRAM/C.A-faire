@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { AddNewCA } from "../components/AddNewCA";
 import { DisplayUserProfile } from "../components/DisplayUserProfile";
 import { NavLink } from "react-router-dom";
+import { DisplayAllCa } from "../components/DisplayAllCa";
 
 export const Profil = () => {
   return (
@@ -17,7 +18,9 @@ export const Profil = () => {
       <div>
         <AddNewCA />
       </div>
-      <div>//TODO affichage de l'historique des chiffres d'affaire</div>
+      <div>
+        <DisplayAllCa />
+      </div>
     </div>
   );
 };
