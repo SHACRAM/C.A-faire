@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const db = require("../dbConfig");
 const bcrypt = require("bcrypt");
+const sendConfirmationEmail = require("../nodeMailer");
 
 /**
  * Crée un jeton JWT à partir des données fournies.
@@ -123,6 +124,7 @@ router.post("/signup", async (req, res) => {
           if (err) {
             console.error("Erreur lors de cla création du compte", err);
           } else {
+            sendConfirmationEmail(req.body.email);
             return res.status(201).json({
               status: true,
               message: "Le compte à été crée avec succès",
