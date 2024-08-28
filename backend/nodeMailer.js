@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   tls: { ciphers: "SSLv3" },
   auth: {
     user: "sebastienlotten@hotmail.fr",
-    pass: "0y1wAAT?x.qjmsy@c(MMd=NNh5md$A",
+    pass: "",
   },
 });
 

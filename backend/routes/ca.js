@@ -3,6 +3,7 @@ const router = express.Router();
 const authToken = require("../authMiddleware");
 const db = require("../dbConfig");
 /**
+ * Récupérer l'ensemble des chiffres d'affaire enregistrés
  * @param INT -Récupère l'id de l'utilisateur  pour la recherche en bdd
  * @return {Object} - retourne un objet contenant le status de la reponse ainsi que les éléments trouvés ou non en bdd
  */

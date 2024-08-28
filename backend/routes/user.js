@@ -9,7 +9,7 @@ const db = require("../dbConfig");
  * @param DATE -Ajoute la date du jour lors de la transaction
  * @return {object} - Un objet avec le status de la réponse avec un message de confirmation ou non
  */
-router.post("/ca", authToken, (req, res) => {
+router.post("/addCa", authToken, (req, res) => {
   const { montant, dateDuJour } = req.body;
   const user_id = req.user.id;
 
@@ -34,7 +34,7 @@ router.post("/ca", authToken, (req, res) => {
 });
 
 /**
- *Récupère le profile de l'utilisateur
+ *Récupére le profile de l'utilisateur
  *@param INT -Utilise l'id stocké dans le jeton pour récupérer les informations en bdd
  *@return {object} Retourne un objet avec la status de la réponse et le profile de l'utilisateur
  */
@@ -59,6 +59,17 @@ router.get("/profile", authToken, (req, res) => {
     }
   });
 });
+/**
+ * Modifier les informations de l'utilisateur
+ * @param  {string} -le nom du salon
+ * @param {string} - l'adresse du salon
+ * @param {date} -la date de création du salon
+ * @param {int} - le nombre d'employés du salon
+ * @param {string} -Le nom du gérant de l'entreprise
+ * @param {string} - le prénom du gérant de l'entreprise
+ * @param {int} -l'id de de l'utilisateur enregistré dans le token
+ * @returns {object} - retourne un objet contenant le status de la reponse ainsi qu'un message de confirmation
+ */
 
 router.post("/modifyUser", authToken, (req, res) => {
   const {
