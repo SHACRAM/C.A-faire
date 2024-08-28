@@ -34,3 +34,25 @@ cron.schedule("0 10 5 * *", () => {
     }
   });
 });
+/**
+ * fonction qui envoie un mail de confirmation de création de compte
+ * @param {string} toEmail -Envoi en parametre de la fonction l'email de l'utilisateur
+ */
+function sendConfirmationEmail(toEmail) {
+  const mailOptions = {
+    from: "sebastienlotten@hotmail.fr",
+    to: toEmail,
+    subject: "Confirmation de création de compte",
+    text: "Votre compte à été crée avec succès, Vous pouvez dés à présent profiter de l'ensemble de nos services en vous connectant sur notre site, à bientôt",
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Erreur lors de l'envoi du mail de confirmation", error);
+    } else {
+      console.log("Mail de confirmation envoyé", info.response);
+    }
+  });
+}
+
+module.exports = sendConfirmationEmail;
