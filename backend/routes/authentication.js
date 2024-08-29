@@ -96,45 +96,79 @@ router.post("/signup", async (req, res) => {
     prenomGerant,
     nomGerant,
   } = req.body;
+  //Fonction qui permet la vérification de la présence de majuscules, caractères spéciaux et longeur du mot de passe
+  function validatePassword(password) {
+    const error = [];
+    if (password.length < 8) {
+      error.push("Le mot de passe doit contenir au minimum 8 caratères");
+    }
+    if (!/[A-Z]/.test(password)) {
+      error.push("Le mot de passe doit contenir au moins une majuscule");
+    }
+    if (!/\d/.test(password)) {
+      error.push("Le mot de passe doit contenir au moins un chiffre");
+    }
+    if (!/[@$!%*?&]/.test(password)) {
+      error.push("Le mot de passe doit contenir au moins un caractère spécial");
+    }
+    return error;
+  }
+
+  // Vérification des champs obligatoires
+  if (!enterprise || !email || !password) {
+    return res
+      .status(400)
+      .json({ status: false, message: "Tous les champs sont obligatoires" });
+  }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    if (!enterprise || !email || !password) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Tous les champs sont obligatoires" });
-    } else {
-      const sql =
-        "INSERT INTO Users (enterprise, email, password, nomSalon, adresseSalon, dateOuverture, nombreemployes, prenomGerant, nomGerant ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      db.query(
-        sql,
-        [
-          enterprise,
-          email,
-          hashedPassword,
-          nomSalon,
-          adresseSalon,
-          dateOuverture,
-          nombreEmployes,
-          prenomGerant,
-          nomGerant,
-        ],
-        (err, result) => {
-          if (err) {
-            console.error("Erreur lors de cla création du compte", err);
-          } else {
-            sendConfirmationEmail(req.body.email);
-            return res.status(201).json({
-              status: true,
-              message: "Le compte à été crée avec succès",
-            });
-          }
-        }
-      );
+    let hashedPassword;
+    const passwordErrors = validatePassword(password);
+    // Si le mot de passe ne satisfait pas tous les critères
+    if (passwordErrors.length > 0) {
+      return res.status(400).json({
+        status: false,
+        message: passwordErrors.join(" "),
+      });
     }
+
+    // Si le mot de passe est valide, on le hache
+    hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insertion dans la base de données
+    const sql =
+      "INSERT INTO Users (enterprise, email, password, nomSalon, adresseSalon, dateOuverture, nombreemployes, prenomGerant, nomGerant ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    db.query(
+      sql,
+      [
+        enterprise,
+        email,
+        hashedPassword,
+        nomSalon,
+        adresseSalon,
+        dateOuverture,
+        nombreEmployes,
+        prenomGerant,
+        nomGerant,
+      ],
+      (err, result) => {
+        if (err) {
+          console.error("Erreur lors de la création du compte", err);
+          return res.status(500).json({
+            status: false,
+            message: "Erreur lors de la création du compte.",
+          });
+        } else {
+          sendConfirmationEmail(req.body.email);
+          return res.status(201).json({
+            status: true,
+            message: "Le compte a été créé avec succès",
+          });
+        }
+      }
+    );
   } catch (error) {
-    console.error("Erreur lors du hachage du mot de passe", error);
+    console.error("Erreur lors du processus de création de compte", error);
     return res
       .status(500)
       .json({ status: false, message: "Erreur interne du serveur" });

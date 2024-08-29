@@ -96,3 +96,21 @@ Récupérer l'ensemble des chiffres d'affaire enregistrés
 
 - @param INT -Récupère l'id de l'utilisateur pour la recherche en bdd
 - @return {Object} - retourne un objet contenant le status de la reponse ainsi que les éléments trouvés ou non en bdd
+
+#**Autres fichiers:**
+
+**axiosConfig.js**
+
+- Permet de faire des requêtes asynchrones en incluant le token pour authentifier les accès.
+
+**authMiddleware.js**
+
+- Permet de vérifier si le token est valide et donne ou non l'accès aux informations.
+
+**nodeMailer.js**
+
+- Fichier de configuration pour l'envoi d'un mail lors de la création d'un compte ainsi qu'une tache cron pour l'envoi d'un mail de rappel le 5 du mois.
+
+**dbConfig.js**
+
+- Fichier de configuration de votre base de données.

@@ -43,11 +43,19 @@ export const CreateAccount = () => {
         }, 2000);
         setIsSuccess(true);
       } else {
-        setMessage("Erreur lors de la création du compte");
+        setMessage(response.data.message);
         setIsSuccess(false);
       }
     } catch (error) {
-      console.error("Erreur, impossible de créer votre compte");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Erreur, impossible de créer votre compte");
+      }
       setIsSuccess(false);
     }
   };
