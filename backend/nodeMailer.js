@@ -40,7 +40,7 @@ cron.schedule("0 10 5 * *", () => {
  */
 function sendConfirmationEmail(toEmail) {
   const mailOptions = {
-    from: "sebastienlotten@hotmail.fr",
+    from: "",
     to: toEmail,
     subject: "Confirmation de création de compte",
     text: "Votre compte à été crée avec succès, Vous pouvez dés à présent profiter de l'ensemble de nos services en vous connectant sur notre site, à bientôt",
