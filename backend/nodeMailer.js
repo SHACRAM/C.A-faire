@@ -11,14 +11,14 @@ const transporter = nodemailer.createTransport({
   port: 587,
   tls: { ciphers: "SSLv3" },
   auth: {
-    user: "sebastienlotten@hotmail.fr",
+    user: "",
     pass: "",
   },
 });
 
 const mailOptions = {
-  from: "sebastienlotten@hotmail.fr",
-  to: "lottensebastien@gmail.com",
+  from: "",
+  to: "",
   subject: "Rappel C.A faire",
   text: "N'oubliez pas d'enregistrer votre chiffre d'affaire de ce mois, afin de suivre la progression de votre salon! Cet e-mail est un e-mail automatique merci de ne pas y répondre",
 };
