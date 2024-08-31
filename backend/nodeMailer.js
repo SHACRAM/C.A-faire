@@ -11,14 +11,14 @@ const transporter = nodemailer.createTransport({
   port: 587,
   tls: { ciphers: "SSLv3" },
   auth: {
-    user: "sebastienlotten@hotmail.fr",
+    user: "",
     pass: "",
   },
 });
 
 const mailOptions = {
-  from: "sebastienlotten@hotmail.fr",
-  to: "lottensebastien@gmail.com",
+  from: "",
+  to: "",
   subject: "Rappel C.A faire",
   text: "N'oubliez pas d'enregistrer votre chiffre d'affaire de ce mois, afin de suivre la progression de votre salon! Cet e-mail est un e-mail automatique merci de ne pas y répondre",
 };
@@ -40,7 +40,7 @@ cron.schedule("0 10 5 * *", () => {
  */
 function sendConfirmationEmail(toEmail) {
   const mailOptions = {
-    from: "sebastienlotten@hotmail.fr",
+    from: "",
     to: toEmail,
     subject: "Confirmation de création de compte",
     text: "Votre compte à été crée avec succès, Vous pouvez dés à présent profiter de l'ensemble de nos services en vous connectant sur notre site, à bientôt",
